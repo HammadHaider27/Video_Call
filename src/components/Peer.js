@@ -1,8 +1,9 @@
 import { useVideo } from "@100mslive/react-sdk";
+import Footer from "./Footer";
 
 function Peer({ peer }) {
   const { videoRef } = useVideo({
-    trackId: peer.videoTrack
+    trackId: peer.videoTrack,
   });
   return (
     <div className="peer-container">
@@ -15,6 +16,7 @@ function Peer({ peer }) {
       />
       <div className="peer-name">
         {peer.name} {peer.isLocal ? "(You)" : ""}
+        {/* <Footer /> */}
       </div>
     </div>
   );

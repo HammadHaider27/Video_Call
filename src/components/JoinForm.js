@@ -5,31 +5,25 @@ function JoinForm() {
   const hmsActions = useHMSActions();
   const [inputValues, setInputValues] = useState({
     name: "",
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoyLCJ0eXBlIjoiYXBwIiwiYXBwX2RhdGEiOm51bGwsImFjY2Vzc19rZXkiOiI2NTFhYmQ0MzY4MTExZjZmZTRiNTc3MGQiLCJyb2xlIjoiaG9zdCIsInJvb21faWQiOiI2NTFhYmU2OGNiMzlkNTdlOGE1ZDI0MjciLCJ1c2VyX2lkIjoiMDM5ZDYxZTgtOWY0Zi00MDkzLWI2MmEtYWY0ZmNhNmIzZDk2IiwiZXhwIjoxNjk2MzM4NTA0LCJqdGkiOiI0NDBhOWM2Yi1hNjY0LTRhYmItOTNhOC1mZTFkNWQ5ZDczZWYiLCJpYXQiOjE2OTYyNTIxMDQsImlzcyI6IjY1MWFiZDQzNjgxMTFmNmZlNGI1NzcwYiIsIm5iZiI6MTY5NjI1MjEwNCwic3ViIjoiYXBpIn0.RmVXaJK9FErHAC2BObv1tYgbup6Jh-u3jwPH0s2LX-E"
+    token: "",
   });
 
   const handleInputChange = (e) => {
     setInputValues((prevValues) => ({
       ...prevValues,
-      [e.target.name]: e.target.value
-      
+      [e.target.name]: e.target.value,
     }));
+    console.log("prevValues", e.target.value)
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {
-      userName = '',
-      roomCode = 'kpe-jwje-brs',
-    } = inputValues
-
-    // use room code to fetch auth token
-    const authToken = await hmsActions.getAuthTokenByRoomCode({ roomCode })
-
+    const { name, token } = inputValues;
+    // console.log("token", token);
     try {
-      await hmsActions.join({ userName, authToken });
+      await hmsActions.join({ userName: name, authToken: token });
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
   };
 
@@ -49,10 +43,12 @@ function JoinForm() {
       </div>
       <div className="input-container">
         <input
-          id="room-code"
+          required
+          id="auth-token"
+          value={inputValues.token}
           type="text"
-          name="roomCode"
-          placeholder="Room code"
+          name="token"
+          placeholder="Auth Token"
           onChange={handleInputChange}
         />
       </div>

@@ -1,11 +1,10 @@
-import './App.css';
-import Screen from './screens';
+import "./App.css";
+import Screen from "./screens";
 
 function App() {
   return (
     <div className="App">
-     <Screen />
-     
+      <Screen />
     </div>
   );
 }
