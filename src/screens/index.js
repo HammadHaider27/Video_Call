@@ -29,7 +29,7 @@ export default function Screen() {
       {isConnected ? (
         <>
           <Conference />
-          <Footer />
+          {/* <Footer /> */}
         </>
       ) : (
         <JoinForm />
